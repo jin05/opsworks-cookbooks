@@ -46,7 +46,8 @@ http {
 }
 
 server {
-  listen 443 ssl;
-  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-  error_page 405 = $uri;
+  listen  443 ssl;
+  ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
 }
+
+error_page 405 = $uri;
