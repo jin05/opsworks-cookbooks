@@ -44,9 +44,17 @@ http {
   include <%= node[:nginx][:dir] %>/conf.d/*.conf;
   include <%= node[:nginx][:dir] %>/sites-enabled/*;
 
-　server {
+  server {
+    listen 443 default_server ssl;
+    ssl on;
+    ssl_certificate      <%= node[:nginx][:server][:ssl_crt] %>;
+    ssl_certificate_key  <%= node[:nginx][:server][:ssl_key] %>;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    error_page 405 = $uri;
+    error_page 405 =200 $uri;
+    location / {
+      root   <%= node[:nginx][:server][:location_root] %>;
+      index  index.html index.htm index.php;
+    }
   }
 
 }
